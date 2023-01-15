@@ -100,6 +100,8 @@ class HarperDB(HarperDBBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.connect = self._connect
+        self.close = self._disconnect
         self.create_schema = self._create_schema
         self.drop_schema = self._drop_schema
         self.describe_schema = self._describe_schema
