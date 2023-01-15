@@ -21,6 +21,18 @@ class HarperDBBase():
             self.token = 'Basic {}'.format(token)
         self.timeout = timeout
 
+
+    def __enter__(self, username=None, password=None):
+        self.session = self._connect(username, password)
+        return self
+
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        if self.session:
+            self._disconnect()
+            self.session = None
+
+
     def __make_request(self, data):
         """ Make a POST request to the database instance with JSON data.
 
@@ -31,7 +43,8 @@ class HarperDBBase():
         }
         if self.token:
             headers['Authorization'] = self.token
-        response = requests.request(
+            self.session.headers.update({"Authorization": self.token})
+        response = self.session.request(
             'POST',
             self.url,
             headers=headers,
@@ -43,6 +56,17 @@ class HarperDBBase():
         except requests.exceptions.HTTPError:
             raise HarperDBError(body.get('error', 'An unknown error occurred'))
         return body
+
+    def _connect(self, username=None, password=None):
+        self.session = requests.Session()
+        if username and password:
+            self.session.auth = (username, password)
+        return self.session
+
+    def _disconnect(self):
+        if self.session:
+            self.session.close()
+            self.session = None
 
     # Schemas and Tables
 
