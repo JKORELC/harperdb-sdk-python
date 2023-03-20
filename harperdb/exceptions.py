@@ -4,3 +4,7 @@ class HarperDBError(Exception):
 
     This is the only Exception raised explicitly.
     """
+
+
+class HarperDBConnectionError(HarperDBError):
+    pass

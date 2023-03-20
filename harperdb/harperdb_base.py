@@ -2,7 +2,10 @@ import base64
 import json
 import requests
 
-from .exceptions import HarperDBError
+from .exceptions import (
+    HarperDBError,
+    HarperDBConnectionError,
+)
 
 
 class HarperDBBase():
@@ -44,12 +47,15 @@ class HarperDBBase():
         if self.token:
             headers['Authorization'] = self.token
             self.session.headers.update({"Authorization": self.token})
-        response = self.session.request(
-            'POST',
-            self.url,
-            headers=headers,
-            data=json.dumps(data),
-            timeout=self.timeout)
+        try:
+            response = self.session.request(
+                'POST',
+                self.url,
+                headers=headers,
+                data=json.dumps(data),
+                timeout=self.timeout)
+        except requests.exceptions.ConnectionError: #, ConnectionRefusedError):
+            raise HarperDBConnectionError('Connection refused.')
         body = response.json()
         try:
             response.raise_for_status()
