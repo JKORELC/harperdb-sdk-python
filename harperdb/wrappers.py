@@ -54,6 +54,7 @@ class HarperDBWrapper(HarperDBBase):
         - _insert(schema, table, [records])
         - _update(schema, table, [records])
         - _delete(schema, table, [hashes])
+        - _search_by_conditions(schema, table, operator, offset, limit, get_attributes=['*'], [conditions])
         - _search_by_hash(schema, table, [hashes], get_attributes=['*'])
         - _search_by_value(schema,
                            table,

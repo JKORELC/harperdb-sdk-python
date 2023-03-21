@@ -37,6 +37,7 @@ class HarperDB(HarperDBBase):
         - insert(schema, table, [records])
         - update(schema, table, [records])
         - delete(schema, table, [hashes])
+        - search_by_conditions(schema, table, operator, offset, limit, get_attributes=['*'], [conditions])
         - search_by_hash(schema, table, [hashes], get_attributes=['*'])
         - search_by_value(schema,
                           table,

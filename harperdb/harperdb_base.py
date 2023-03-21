@@ -155,6 +155,32 @@ class HarperDBBase():
             'hash_values': hash_values,
         })
 
+    def _search_by_conditions(
+            self,
+            schema,
+            table,
+            operator='and',
+            offset=0,
+            limit=None,
+            get_attributes=None,
+            conditions=None):
+
+        get_attributes = get_attributes or ['*']
+
+        if not conditions:
+            raise ValueError('Conditions attribute cannot be empty.')
+
+        return self.__make_request({
+            'operation': 'search_by_conditions',
+            'schema': schema,
+            'table': table,
+            'operator': operator,
+            'offset': offset,
+            'limit': limit,
+            'get_attributes': get_attributes,
+            'conditions': conditions,
+        })
+
     def _search_by_hash(
             self,
             schema,
