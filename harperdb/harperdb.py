@@ -36,6 +36,7 @@ class HarperDB(HarperDBBase):
       NoSQL Operations:
         - insert(schema, table, [records])
         - update(schema, table, [records])
+        - upsert(schema, table, [records])
         - delete(schema, table, [hashes])
         - search_by_hash(schema, table, [hashes], get_attributes=['*'])
         - search_by_value(schema,

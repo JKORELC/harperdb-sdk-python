@@ -67,6 +67,7 @@ class HarperDBBase():
         self.session = requests.Session()
         if username and password:
             self.session.auth = (username, password)
+        self.session.get(self.url)
         return self.session
 
     def _disconnect(self):
@@ -142,6 +143,14 @@ class HarperDBBase():
     def _update(self, schema, table, records):
         return self.__make_request({
             'operation': 'update',
+            'schema': schema,
+            'table': table,
+            'records': records,
+        })
+
+    def _upsert(self, schema, table, records):
+        return self.__make_request({
+            'operation': 'upsert',
             'schema': schema,
             'table': table,
             'records': records,
