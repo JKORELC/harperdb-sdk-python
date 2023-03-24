@@ -49,6 +49,7 @@ class HarperDB(HarperDBBase):
         - csv_data_load(schema, table, path, action="insert")
         - csv_file_load(schema, table, file_path, action="insert")
         - csv_url_load(schema, table, csv_url, action="insert")
+        - import_from_s3(schema, table, s3_params, action="insert")
       Users and Roles:
         - add_user(role id, username, password, active=True)
         - add_role(name, permission)
@@ -119,6 +120,7 @@ class HarperDB(HarperDBBase):
         self.csv_data_load = self._csv_data_load
         self.csv_file_load = self._csv_file_load
         self.csv_url_load = self._csv_url_load
+        self.insert_from_s3 = self._import_from_s3
         self.get_job = self._get_job
         self.search_jobs_by_start_date = self._search_jobs_by_start_date
         self.add_user = self._add_user

@@ -66,6 +66,7 @@ class HarperDBWrapper(HarperDBBase):
         - _csv_data_load(schema, table, path, action="insert")
         - _csv_file_load(schema, table, file_path, action="insert")
         - _csv_url_load(schema, table, csv_url, action="insert")
+        - _import_from_s3(schema, table, s3_params, action="insert")
       Users and Roles:
         - _add_user(role id, username, password, active=True)
         - _add_role(name, permission)

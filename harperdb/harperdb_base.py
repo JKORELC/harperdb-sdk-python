@@ -224,6 +224,15 @@ class HarperDBBase():
             'csv_url': csv_url,
         })
 
+    def _import_from_s3(self, schema, table, s3_params, action='insert'):
+        return self.__make_request({
+            'operation': 'import_from_s3',
+            'action': action,
+            'schema': schema,
+            'table': table,
+            's3': s3_params,
+        })
+
     # Users and Roles
 
     def _add_user(self, role, username, password, active=True):
